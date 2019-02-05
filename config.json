@@ -1,0 +1,7 @@
+{
+  "data_rate": 100,
+  "sample_width": 1,
+  "sample_rate": 40000,
+  "freq": [ 2000, 4000 ],
+  "volume": 1.0
+}
