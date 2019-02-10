@@ -13,6 +13,6 @@ def recieve():
 def transmit(raw):
   ss = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)
   ss.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
-  ss.timeout(0.2)
+  ss.settimeout(0.2)
   ss.bind(SERVER_SOCKET)
-  ss.sendto(''.join(map(str, raw)), CLIENT_SOCKET[1])
+  ss.sendto(''.join(map(str, raw)), ('<broadcast>', CLIENT_SOCKET[1]))
