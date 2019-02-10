@@ -6,6 +6,11 @@ from __init__ import Squeak
 if sys.argv[1] == 'listen':
   squeak = Squeak.listen()
   print(squeak)
+elif sys.argv[1] == 'type':
+  message = input('Type your message: ')
+  message = [int(x) for x in message]
+  squeak = Squeak.listen(raw=message)
+  print(squeak)
 else:
   data = [int(bit) for bit in sys.argv[1]]
   edata = [int(bit) for bit in sys.argv[2]] if len(sys.argv) > 2 else None

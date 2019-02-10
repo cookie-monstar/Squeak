@@ -3,13 +3,14 @@ from link import encode, decode
 
 class Squeak:
   @staticmethod
-  def listen():
-    raw = recieve()
+  def listen(raw=None):
+    raw = recieve() if raw == None else raw
     data,edata = decode(raw)
     return Squeak(data, raw, edata)
   @staticmethod
   def squeak(data, edata=None):
     raw = encode(data, edata)
+    print('message: ', ''.join(map(str, raw)))
     transmit(raw)
   @classmethod
   def __init__(self, data, raw=None, edata=None):
