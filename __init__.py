@@ -5,19 +5,18 @@ class Squeak:
   @staticmethod
   def listen():
     raw = recieve()
-    data = decode(raw)
-    return Squeak(data, raw)
+    data,edata = decode(raw)
+    return Squeak(data, raw, edata)
   @staticmethod
-  def squeak(data):
-    raw = encode(data)
+  def squeak(data, edata=None):
+    raw = encode(data, edata)
     transmit(raw)
-  @staticmethod
-  def weak_squeak():
-    pass
   @classmethod
-  def __init__(self, data, raw=None):
+  def __init__(self, data, raw=None, edata=None):
     self.raw = raw
-    self.data = data if type(data) is str else ''.join(data)
+    self.data = data
+    self.edata = edata
+    self.repr = ''.join(map(lambda a,b: a if a == b else '\033[4m'+a+'\033[0m' , self.data, self.edata))
   @classmethod
   def __repr__(self):
-    return 'Squeak{%s}' % self.data
+    return 'Squeak <%s>' & self.repr
