@@ -16,7 +16,7 @@ class Squeak:
     self.raw = raw
     self.data = data
     self.edata = edata
-    self.repr = ''.join(map(lambda a,b: a if a == b else '\033[4m'+a+'\033[0m' , self.data, self.edata))
+    self.repr = ''.join(map(lambda a,b: str(a) if a == b else '\033[32m'+str(a)+'\033[0m' , self.data, self.edata))
   @classmethod
   def __repr__(self):
-    return 'Squeak <%s>' & self.repr
+    return 'Squeak <%s>' % self.repr
