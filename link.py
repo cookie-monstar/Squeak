@@ -32,9 +32,9 @@ def decode(message):
   ebits = xormap(error(data), message[25:])
   count = (sum(ebits), sum(ebits[0:5]), sum(ebits[5:10]), sum(ebits[10:15]))
   if count[0] == 0:
-    # errors                            = 0
+    # errors = 0
     pass
-  elif count[1] == count[2] == 1:
+  elif count[1] == count[2] == count[3] == 1:
     # errors = 1
     x = ebits[0:5].index(1)
     y = ebits[5:10].index(1)
@@ -45,7 +45,7 @@ def decode(message):
     y2 = ebits[5:10].index(1,y1+1)
     z1 = ebits[10:15].index(1)
     z2 = ebits[10:15].index(1,z1+1)
-    if y1-z1 == y2-z2:
+    if (y1-z1+5)%5 == (y2-z2+5)%5:
       data[(y1-z1+5)%5*5+y1] ^= 1
       data[(y2-z2+5)%5*5+y2] ^= 1
     else:
@@ -57,7 +57,7 @@ def decode(message):
     x2 = ebits[0:5].index(1,x1+1)
     z1 = ebits[10:15].index(1)
     z2 = ebits[10:15].index(1,z1+1)
-    if x1+z1 == x2+z2:
+    if (x1+z1)%5 == (x2+z2)%5:
       data[5*x1+(x1+z1)%5] ^= 1
       data[5*x2+(x2+z2)%5] ^= 1
     else:
@@ -83,7 +83,7 @@ def decode(message):
     y2 = ebits[5:10].index(1,y1+1)
     z1 = ebits[10:15].index(1)
     z2 = ebits[10:15].index(1,z1+1)
-    if y1 == (x1+z1)%5:
+    if (y1-x1+5)%5 in (z1, z2):
       data[5*x1+y1] ^= 1
       data[5*x2+y2] ^= 1
     else:
