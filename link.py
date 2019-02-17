@@ -28,7 +28,7 @@ def encode(data, edata=None):
 
 def decode(message):
   data = message[0:25]
-  edata = data
+  edata = data[:]
   ebits = xormap(error(data), message[25:])
   count = (sum(ebits), sum(ebits[0:5]), sum(ebits[5:10]), sum(ebits[10:15]))
   if count[0] == 0:
